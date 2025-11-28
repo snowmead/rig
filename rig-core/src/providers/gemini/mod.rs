@@ -12,10 +12,17 @@
 pub mod client;
 pub mod completion;
 pub mod embedding;
+#[cfg(feature = "image")]
+pub mod image_generation;
 pub mod streaming;
 pub mod transcription;
 
 pub use client::Client;
+
+#[cfg(feature = "image")]
+pub use image_generation::{
+    GEMINI_2_5_FLASH_IMAGE, GEMINI_3_PRO_IMAGE_PREVIEW, ImageGenerationModel,
+};
 
 pub mod gemini_api_types {
     use serde::{Deserialize, Serialize};

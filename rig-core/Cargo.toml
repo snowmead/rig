@@ -166,3 +166,15 @@ name = "request_hook"
 [[example]]
 name = "discord_bot"
 required-features = ["discord-bot"]
+
+[[example]]
+name = "gemini_image_generation"
+required-features = ["image"]
+
+[[example]]
+name = "openai_image_generation"
+required-features = ["image"]
+
+[[example]]
+name = "huggingface_image_generation"
+required-features = ["image"]

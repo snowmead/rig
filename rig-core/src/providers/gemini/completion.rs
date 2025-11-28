@@ -1393,8 +1393,13 @@ pub mod gemini_api_types {
         /// Configuration for thinking/reasoning.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub thinking_config: Option<ThinkingConfig>,
+        /// Configuration for image generation output.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub image_config: Option<ImageConfig>,
+        /// Specifies what modalities the model should output.
+        /// Required for image generation - must include ["TEXT", "IMAGE"].
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub response_modalities: Option<Vec<ResponseModality>>,
     }
 
     impl Default for GenerationConfig {
@@ -1416,6 +1421,7 @@ pub mod gemini_api_types {
                 logprobs: None,
                 thinking_config: None,
                 image_config: None,
+                response_modalities: None,
             }
         }
     }
@@ -1434,6 +1440,21 @@ pub mod gemini_api_types {
         pub aspect_ratio: Option<String>,
         #[serde(skip_serializing_if = "Option::is_none")]
         pub image_size: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub number_of_images: Option<u32>,
+    }
+
+    /// Output response modalities for Gemini API.
+    /// Used to specify what type of content the model should generate.
+    #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
+    #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
+    pub enum ResponseModality {
+        /// Text output modality
+        Text,
+        /// Image output modality (requires supported model)
+        Image,
+        /// Audio output modality
+        Audio,
     }
 
     /// The Schema object allows the definition of input and output data types. These types can be objects, but also

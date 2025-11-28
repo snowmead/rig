@@ -1,5 +1,5 @@
 #[cfg(feature = "image")]
-use crate::client::Nothing;
+use crate::client::Capable as ImageCapable;
 use crate::client::{
     self, ApiKey, Capabilities, Capable, DebugExt, Provider, ProviderBuilder, ProviderClient,
     Transport,
@@ -84,9 +84,9 @@ impl<H> Capabilities<H> for GeminiExt {
     type Transcription = Capable<super::transcription::TranscriptionModel>;
 
     #[cfg(feature = "image")]
-    type ImageGeneration = Nothing;
+    type ImageGeneration = ImageCapable<super::image_generation::ImageGenerationModel>;
     #[cfg(feature = "audio")]
-    type AudioGeneration = Nothing;
+    type AudioGeneration = crate::client::Nothing;
 }
 
 impl ProviderBuilder for GeminiBuilder {
